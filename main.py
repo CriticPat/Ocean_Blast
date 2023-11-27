@@ -14,7 +14,7 @@ screen =pygame.display.set_mode([WIDTH,HEIGHT])
 
 #Assets that will be used for the game
 guns=pygame.transform.scale(pygame.image.load('assets/gun/gun.png'),(100, 100))
-bg=pygame.image.load('assets/bg/bg.png')
+bg=pygame.image.load('assets/bg/bg.jpg')
 targets=[]
 level=1
  
