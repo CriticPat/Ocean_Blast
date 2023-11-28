@@ -9,18 +9,18 @@ fps=60
 timer= pygame.time.Clock()
 font=pygame.font.Font('assets/Fonts/MelodyStories.otf',32)
 WIDTH=900
-HEIGHT =800
+HEIGHT =700
 screen =pygame.display.set_mode([WIDTH,HEIGHT])
 
 #Assets that will be used for the game
-guns=pygame.image.load('assets/gun/gun.png')#This value scales the image for the gun
+guns=pygame.transform.scale(pygame.image.load('assets/gun/Harpoon.png'),(150,150))#This value scales the image for the gun
 bg=pygame.transform.scale(pygame.image.load('assets/bg/bg.jpg'),(900,800))#This stretches the backgorund to fit the entire window
 targets=[]
 level=1
  
 def draw_gun():
 	mouse_pos=pygame.mouse.get_pos()
-	gun_point=(WIDTH/2, HEIGHT-200)
+	gun_point=(WIDTH/2, HEIGHT-100)
 	lasers=['brown']
 	clicks=pygame.mouse.get_pressed()
 	if mouse_pos[0] != gun_point[0]:
