@@ -13,7 +13,7 @@ HEIGHT =800
 screen =pygame.display.set_mode([WIDTH,HEIGHT])
 
 #Assets that will be used for the game
-guns=pygame.transform.scale(pygame.image.load('assets/gun/gun.png'),(66, 200))#This value scales the image for the gun
+guns=pygame.image.load('assets/gun/gun.png')#This value scales the image for the gun
 bg=pygame.transform.scale(pygame.image.load('assets/bg/bg.jpg'),(900,800))#This stretches the backgorund to fit the entire window
 targets=[]
 level=1
