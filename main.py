@@ -53,7 +53,7 @@ lives = 3  # Starting lives
 level = 1
 score = 0
 target_images= []
-target={1: 200, 100, 75, 40}
+target={1: [200, 100, 75, 400]}
 
 # Function to draw the gun
 def draw_gun():
