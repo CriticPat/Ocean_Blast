@@ -11,11 +11,14 @@ timer = pygame.time.Clock()
 font = pygame.font.Font('assets/Fonts/MelodyStories.otf', 32)
 WIDTH, HEIGHT = 900, 700
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
+target_images=[]
 
 # Load Assets
 guns = pygame.transform.scale(pygame.image.load('assets/gun/Harpoon.png'), (150, 150))
 bg = pygame.transform.scale(pygame.image.load('assets/bg/bg.jpg'), (900, 800))
 heart_image = pygame.transform.scale(pygame.image.load('assets/life/heart.png'), (30, 30))
+for i in range(1,5):
+     target_images.append(pygame.image.load(f'assets/targets/{i}.png'))
 
 # Game Variables
 lives = 3  # Starting lives
@@ -50,9 +53,6 @@ def draw_gun():
             screen.blit(pygame.transform.rotate(gun, 270 - rotation), (WIDTH/2 - 30, HEIGHT - 250))
             if clicks[0]:
                 pygame.draw.circle(screen, lasers[level-1], mouse_pos, 5)
-			
-
-
 # Function to draw lives
 def draw_lives():
     for i in range(lives):
@@ -64,6 +64,7 @@ class Enemy:
         self.y = y
         self.type = type
         self.speed = speed
+
         # Add other attributes like image, health, etc.
 
     def draw(self):
