@@ -12,8 +12,15 @@ font = pygame.font.Font('assets/Fonts/MelodyStories.otf', 60)
 WIDTH, HEIGHT = 900, 700
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 target_images=[]
-menu=True
+menu=False
 high_score=0
+
+# Game Variables
+lives = 3  # Starting lives
+level = 1
+score = 0
+target_images= []
+target={1: [25, 15, 12, 10]}
 
 # Load Assets
 guns = pygame.transform.scale(pygame.image.load('assets/gun/Harpoon.png'), (150, 150))
@@ -22,7 +29,7 @@ banner= pygame.transform.scale(pygame.image.load(f'assets/banner/banner.png'), (
 heart_image = pygame.transform.scale(pygame.image.load('assets/life/heart.png'), (30, 30))
 menu_image= pygame.image.load(f'assets/menu/menu.png')
 for i in range(1,5):
-     target_images.append(pygame.image.load(f'assets/targets/{i}.png'))
+     target_images.append(pygame.transform.scale(pygame.image.load(f'assets/targets/{i}.png'),(100,100)))
 
 pygame.mixer.init()
 pygame.mixer.music.load('assets/sounds/Super Mario 64 - Water Theme  Dire Dire Docks - HD.mp3')
@@ -47,14 +54,6 @@ def draw_menu():
         level=2
         menu=False
                                                       
-    
-# Game Variables
-lives = 3  # Starting lives
-level = 1
-score = 0
-target_images= []
-target={1: [200, 100, 75, 400]}
-
 # Function to draw the gun
 def draw_gun():
     mouse_pos = pygame.mouse.get_pos()
@@ -92,13 +91,20 @@ def draw_level(coords):
         target_rects=[[],[],[],[]]
 
     for i in range(len(coords)):
-        for i in range(len(coords[i])): 
-            target_rects[i].append(pygame.rect.Rect(coords[i][j][0]+20, coords[i][j][0],(50*i,50*i))
-    screen.blit(target_images[level-1][i], coords[i][j])
+        for j in range(len(coords[i])): 
+            target_rects[i].append(pygame.rect.Rect((coords[i][j][0] + 20, coords[i][j][0]),
+                                                    (60-i*12,60-i*12)))
+            screen.blit(target_images[i], coords[i][j])
     return target_rects
 
 #initialize enemy coordinates
 level_coords=[[],[],[],[]]
+#This will create a coordinate for each asked enemy. eg. #1 enemy=200
+for i in range(4):
+    my_list=target[1]
+    for j in range(my_list[i]):
+        level_coords[i].append((WIDTH//(my_list[i])*j, 300-(i*100)+30*(j%2)))
+
 
 # Main Game Loop
 run = True
@@ -112,6 +118,10 @@ while run:
         level==0
         pygame.mixer.music.play()
         draw_menu()
+
+
+    if level==1: 
+        draw_level(level_coords)
 
     draw_gun()
     draw_lives()
