@@ -24,15 +24,27 @@ menu_image= pygame.image.load(f'assets/menu/menu.png')
 for i in range(1,5):
      target_images.append(pygame.image.load(f'assets/targets/{i}.png'))
 
+pygame.mixer.init()
+pygame.mixer.music.load('assets/sounds/Super Mario 64 - Water Theme  Dire Dire Docks - HD.mp3')
+harpoon_sound = pygame.mixer.Sound('assets/sounds/Harpoon sound- sound effect..mp3')
+harpoon_sound.set_volume(.2)
+pygame.mixer.music.load('assets/sounds/Donkey Kong Country - Aquatic Ambience [Restored].mp3')
+pygame.mixer.music.play()
+
+
 def draw_menu():
     screen.blit(menu_image,(0,0))
     mouse_pos=pygame.mouse.get_pos()
     clicks=pygame.mouse.get_pressed()
-    play_button=pygame.rect.Rect((302, 330),(245,75))
+    play_button=pygame.rect.Rect((302, 330),(245,75)) 
+    exit_button=pygame.rect.Rect((315, 490), (230, 75))
     screen.blit(font.render(f'{high_score}',True,'black'),(510, 198))
 
     if play_button.collidepoint(mouse_pos) and clicks[0]and not clicked: 
         level=1
+        menu=False
+    elif exit_button.collidepoint(mouse_pos) and clicks[0]and not clicked: 
+        level=2
         menu=False
                                                       
     
@@ -98,6 +110,7 @@ while run:
 
     if menu:
         level==0
+        pygame.mixer.music.play()
         draw_menu()
 
     draw_gun()
