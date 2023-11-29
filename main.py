@@ -40,7 +40,8 @@ def draw_menu():
 lives = 3  # Starting lives
 level = 1
 score = 0
-targets = []
+target_images= []
+target={1: 200, 100, 75, 40}
 
 # Function to draw the gun
 def draw_gun():
@@ -74,6 +75,18 @@ def draw_lives():
     for i in range(lives):
         screen.blit(heart_image, (10 + i * 40, 10))
 
+def draw_level(coords): 
+    if level==1:
+        target_rects=[[],[],[],[]]
+
+    for i in range(len(coords)):
+        for i in range(len(coords[i])): 
+            target_rects[i].append(pygame.rect.Rect(coords[i][j][0]+20, coords[i][j][0],(50*i,50*i))
+    screen.blit(target_images[level-1][i], coords[i][j])
+    return target_rects
+
+#initialize enemy coordinates
+level_coords=[[],[],[],[]]
 
 # Main Game Loop
 run = True
