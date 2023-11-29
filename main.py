@@ -19,6 +19,8 @@ high_score=0
 lives = 3  # Starting lives
 level = 1
 score = 0
+points=0
+shot=True
 target_images= []
 target={1: [25, 15, 12, 10]}
 
@@ -85,18 +87,36 @@ def draw_gun():
 def draw_lives():
     for i in range(lives):
         screen.blit(heart_image, (10 + i * 40, 10))
-
+def move_level(coords):
+    if level==1:
+        max_val=4
+    for i in range(max_val):
+        for j in range(len(coords[i])):
+            my_coords=coords[i][j]
+            if my_coords[0] < -150:
+                coords[i][j]=(WIDTH,coords[1])
+            else:
+                coords[i][j]=(my_coords[0]-2**i, my_coords[1])
 def draw_level(coords): 
     if level==1:
         target_rects=[[],[],[],[]]
-
+        
     for i in range(len(coords)):
         for j in range(len(coords[i])): 
             target_rects[i].append(pygame.rect.Rect((coords[i][j][0] + 20, coords[i][j][0]),
                                                     (60-i*12,60-i*12)))
             screen.blit(target_images[i], coords[i][j])
     return target_rects
-
+def check_shot(target, coords):
+    global points
+    mouse_pos=pygame.mouse.get_pos()
+    for i in range(len(target)):
+        for j in range(len(target[i])):
+            if target[i][j].collidepoint(mouse_pos):
+                coords[i].pop[j]
+                points+= 10 + 10 *(i**2)
+                #add sound when hitting enemy
+    return coords        
 #initialize enemy coordinates
 level_coords=[[],[],[],[]]
 #This will create a coordinate for each asked enemy. eg. #1 enemy=200
@@ -121,7 +141,10 @@ while run:
 
 
     if level==1: 
-        draw_level(level_coords)
+        target_boxes=draw_level(level_coords)
+        level_coords=move_level(level_coords)
+        if shot:
+            level_coords=check_shot(target_boxes, level_coords)
 
     draw_gun()
     draw_lives()
